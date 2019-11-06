@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>flexible</title>
   </head>
@@ -12,6 +11,113 @@
       <strong>We're sorry but flexible doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app"></div>
+    <script>
+      (
+        function(window,lib){
+          var document = window.document;
+          var documentElement = document.documentElement;
+          var viewport = document.querySelector('meta[name="viewport"]');
+          var flexible = document.querySelector('meta[name="flexible"]');
+          var a = 0;
+          var r = 0;
+          var b = 0;
+          var l;
+          var e = lib.flexible ||(lib.flexible={});
+          if(flexible) {
+            var j = flexible.getAttribute('content');
+            if(j) {
+              var q = j.match(/initial\-dpr=([\d\.]+)/);
+              var h = j.match(/maximum\-dpr=([\d\.]+)/);
+              if(q) {
+                a = parseFloat(q[1]);
+                r = parseFloat((1/a).toFixed(2));
+              }
+              if(h) {
+                a = parseFloat(h[1]);
+                r = parseFloat((1/a).toFixed(2));
+              }
+            }
+          }
+          if(!a&&!r){
+            var p  = window.navigator.appVersion.match(/android/gi);
+            var o = window.navigator.appVersion.match(/iphone/gi);
+            var k = window.devicePixelRatio;
+            if(k>=3&&(!a ||a>=3)) {
+              a = 3;
+            } else {
+              if(k>=2&& (!a ||a>=2)){
+                a = 2;
+              } else {
+                a = 1;
+              }
+            }
+            r = 1/a ;
+          }
+          documentElement.setAttribute('data-dpr',a);
+          viewport  = document.createElement('meta');
+          viewport.setAttribute('name','viewport');
+          viewport.setAttribute('content','width=device-width,initial-scale='+r+',maximum-scale='+r+',user-scalable=no');
+          if(documentElement.firstElementChild){
+            documentElement.firstElementChild.appendChild(viewport);
+          } else {
+            var g = document.createElement('div');
+            g.appendChild(viewport);
+            document.write(g.innerHTML);
+          }
+          function i(){
+            var u= documentElement.getBoundingClientRect().width;
+            if(u/a>540) {
+              u = 540*a;
+            }
+            var w = u/ 10;
+            console.log('documentElement.getBoundingClientRect().width',u);
+            documentElement.style.fontSize = w +'px';
+            e.rem  = window.rem = w ;
+            var v = parseFloat(documentElement.style.fontSize);
+                t =  parseFloat(window.getComputedStyle(documentElement).getPropertyValue('font-size'));
+                console.log('documentElement.style.fontSize',v,t);
+                if(v!==t){
+                  documentElement.style.fontSize = v*(v/t)+'px';
+                  console.log('flexible.refreshRem.fixed:fontSize =>',document.style.fontSize);
+                }
+            }
+          window.addEventListener('resize',function(){
+            clearTimeout(L)
+          },false);
+          window.addEventListener('pageshow',function(t){
+            if(t.persisted) {
+              clearTimeout(l);
+              l = setTimeout(i,300);
+            }
+          },false)
+          if(document.readyState === 'complete') {
+            document.body.style.fontSize = 12 * a + 'px';
+          } else {
+            document.addEventListener('DOMContentLoaded',function(t){
+              document.body.style.fontSize
+            },false);
+          }
+          i();
+          e.dpr = window.dpr = a ;
+          e.refreshRem = i ;
+          e.rem2px = function (u) {
+            var t = parseFloat(u) * this.rem;
+            if(typeof u === 'string'&&u.match(/rem$/)){
+              t += 'px';
+            }
+            return t;
+          };
+          
+        }
+      )(window,window['lib']||(window['lib']={}))
+    </script>
+    <script>
+      window.onpageshow = function (event) {
+        if (event.persisted) {
+          window.location.reload();
+        }
+      }
+    </script>
     <!-- built files will be auto injected -->
   </body>
 </html>

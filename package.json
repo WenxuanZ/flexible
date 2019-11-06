@@ -9,8 +9,16 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "echarts": "^2.2.7-beta7",
+    "lib-flexible": "^0.3.2",
+    "lodash": "^4.17.15",
+    "node-sass": "^4.12.0",
+    "postcss-pxtorem": "^4.0.1",
+    "sass-loader": "^7.1.0",
     "vue": "^2.6.10",
+    "vue-marquee": "^1.2.0",
     "vue-router": "^3.0.3",
+    "vue-seamless-scroll": "^1.1.17",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
