@@ -142,7 +142,7 @@ export default {
         };
     },
 
-    watch: {
+    watch: {    
         value (val) {
             if (val) {
                 if (this._opening) return;
