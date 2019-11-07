@@ -28,5 +28,6 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+readme changed
 flexible is simple practicing project for training
 aaaaaaaaaaa
