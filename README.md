@@ -29,5 +29,6 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 readme changed
+sss
 flexible is simple practicing project for training
 aaaaaaaaaaa
