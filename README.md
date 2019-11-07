@@ -30,6 +30,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 flexible is simple practicing project for training
 
-wenxuan
-ss
-ssss
+this is branch dev
